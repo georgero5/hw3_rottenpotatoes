@@ -22,8 +22,34 @@ Background: movies have been added to database
   And I am on the RottenPotatoes home page
 
 Scenario: sort movies alphabetically
-  # your steps here
+  When I check the following ratings: PG,R,G,NC-17,PG-13
+  And I press "Refresh"
+  And I follow "Movie Title"
+  Then results should be sorted:
+  | before | after |
+  | 2001: A Space Odyssey | Aladdin |
+  | Aladdin | Amelie |
+  | Amelie | Chicken Run |
+  | Chicken Run | Chocolat |
+  | Chocolat | Raiders of the Lost Ark |
+  | Raiders of the Lost Ark | The Help |
+  | The Help | The Incredibles |
+  | The Incredibles | The Terminator |
+  | The Terminator | When Harry Met Sally |
 
 Scenario: sort movies in increasing order of release date
-  # your steps here
-
+  When I check the following ratings: PG,R,G,NC-17,PG-13
+  And I press "Refresh"
+  And I follow "Release Date"
+  Then results should be sorted:
+  | before | after |
+  | 2001: A Space Odyssey | Raiders of the Lost Ark |
+  | Raiders of the Lost Ark | The Terminator |
+  | The Terminator | When Harry Met Sally |
+  | When Harry Met Sally | Aladdin |
+  | Aladdin | Chicken Run |
+  | Chicken Run | Chocolat |
+  | Chocolat | Amelie |
+  | Amelie | The Incredibles |
+  | The Incredibles | The Help |
+  

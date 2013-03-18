@@ -22,6 +22,25 @@ Background: movies have been added to database
   And  I am on the RottenPotatoes home page
   
 Scenario: restrict to movies with 'PG' or 'R' ratings
+  When I check the following ratings: PG,R
+  And I uncheck the following ratings: PG-13,G,NC-17
+  And I press "Refresh"
+  Then I should see all of the movies:
+  | title                   |
+  | The Incredibles         |
+  | Raiders of the Lost Ark |
+  | Amelie                  |
+  | The Terminator          |
+  | When Harry Met Sally    |
+  
+  And I should not see all of the movies:
+  | title                   |
+  | Chicken Run             |
+  | Chocolat                |
+  | Aladdin                 |
+  | 2001: A Space Odyssey   |
+  | The Help                |
+
   # enter step(s) to check the 'PG' and 'R' checkboxes
   # enter step(s) to uncheck all other checkboxes
   # enter step to "submit" the search form on the homepage
@@ -29,7 +48,33 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   # enter step(s) to ensure that other movies are not visible
 
 Scenario: no ratings selected
-  # see assignment
+When I uncheck the following ratings: PG,R,G,NC-17,PG-13
+And I press "Refresh"
+Then I should not see all of the movies:
+  | title |
+  | Aladdin |
+  | The Terminator |
+  | When Harry Met Sally |
+  | The Help |
+  | Chocolat |
+  | Amelie |
+  | 2001: A Space Odyssey |
+  | The Incredibles |
+  | Raiders of the Lost Ark |
+  | Chicken Run |
 
 Scenario: all ratings selected
-  # see assignment
+  When I check the following ratings: PG,R,G,NC-17,PG-13
+  And I press "Refresh"
+  Then I should see all of the movies:
+  | title |
+  | Aladdin |
+  | The Terminator |
+  | When Harry Met Sally |
+  | The Help |
+  | Chocolat |
+  | Amelie |
+  | 2001: A Space Odyssey |
+  | The Incredibles |
+  | Raiders of the Lost Ark |
+  | Chicken Run |
